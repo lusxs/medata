@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { HiSquares2X2, HiUsers } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+import { BiLogOut } from "react-icons/bi";
+import ModalLogout from "./modal/ModalLogout";
 
 import SidebarLinkGroup from "./SidebarLinkGroup";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
   const { pathname } = location;
-
+  const [isModalLogout, setIsModalLogout] = useState(false);
+  const navigate = useNavigate();
   const trigger = useRef(null);
   const sidebar = useRef(null);
 
@@ -49,10 +53,22 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     }
   }, [sidebarExpanded]);
 
+  const handleLogout = () => {
+    navigate("/");
+  };
+
+  const openModal = () => {
+    setIsModalLogout(true);
+  };
+
+  const closeModal = () => {
+    setIsModalLogout(false);
+  };
+
   return (
     <div>
       <div
-        className={`fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
+        className={`fixed flex justify-between flex-col inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
           sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         aria-hidden="true"
@@ -60,242 +76,186 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       <div
         id="sidebar"
         ref={sidebar}
-        className={`flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 bg-slate-800 p-4 transition-all duration-200 ease-in-out ${
+        className={`flex justify-between pb-16 flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 bg-red-600 p-4 transition-all duration-200 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-64"
         }`}
       >
-        <div className="flex justify-between pr-3 mb-10 sm:px-2">
-          <button
-            ref={trigger}
-            className="lg:hidden text-slate-500 hover:text-slate-400"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-controls="sidebar"
-            aria-expanded={sidebarOpen}
-          >
-            <span className="sr-only">Close sidebar</span>
-            <svg
-              className="w-6 h-6 fill-current"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+        <div>
+          <div className="flex justify-between pr-3 mb-10 sm:px-2">
+            <button
+              ref={trigger}
+              className="lg:hidden text-slate-500 hover:text-slate-400"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              aria-controls="sidebar"
+              aria-expanded={sidebarOpen}
             >
-              <path d="M10.7 18.7l1.4-1.4L7.8 13H20v-2H7.8l4.3-4.3-1.4-1.4L4 12z" />
-            </svg>
-          </button>
-          <NavLink end to="/" className="block">
-            <svg width="32" height="32" viewBox="0 0 32 32">
-              <defs>
-                <linearGradient
-                  x1="28.538%"
-                  y1="20.229%"
-                  x2="100%"
-                  y2="108.156%"
-                  id="logo-a"
-                >
-                  <stop stopColor="#A5B4FC" stopOpacity="0" offset="0%" />
-                  <stop stopColor="#A5B4FC" offset="100%" />
-                </linearGradient>
-                <linearGradient
-                  x1="88.638%"
-                  y1="29.267%"
-                  x2="22.42%"
-                  y2="100%"
-                  id="logo-b"
-                >
-                  <stop stopColor="#38BDF8" stopOpacity="0" offset="0%" />
-                  <stop stopColor="#38BDF8" offset="100%" />
-                </linearGradient>
-              </defs>
-              <rect fill="#6366F1" width="32" height="32" rx="16" />
-              <path
-                d="M18.277.16C26.035 1.267 32 7.938 32 16c0 8.837-7.163 16-16 16a15.937 15.937 0 01-10.426-3.863L18.277.161z"
-                fill="#4F46E5"
-              />
-              <path
-                d="M7.404 2.503l18.339 26.19A15.93 15.93 0 0116 32C7.163 32 0 24.837 0 16 0 10.327 2.952 5.344 7.404 2.503z"
-                fill="url(#logo-a)"
-              />
-              <path
-                d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z"
-                fill="url(#logo-b)"
-              />
-            </svg>
-          </NavLink>
-        </div>
+              <span className="sr-only">Close sidebar</span>
+              <svg
+                className="w-6 h-6 fill-current"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M10.7 18.7l1.4-1.4L7.8 13H20v-2H7.8l4.3-4.3-1.4-1.4L4 12z" />
+              </svg>
+            </button>
+            <NavLink end to="/" className="block">
+              <h1 className="text-3xl font-bold text-white uppercase">
+                Medata
+              </h1>
+            </NavLink>
+          </div>
 
-        <div className="space-y-8">
-          <div>
-            <h3 className="pl-3 text-xs font-semibold uppercase text-slate-500">
-              <span
-                className="hidden w-6 text-center lg:block lg:sidebar-expanded:hidden 2xl:hidden"
-                aria-hidden="true"
-              >
-                •••
-              </span>
-            </h3>
-            <ul className="mt-3">
-              <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes("dashboard") && "bg-slate-900"
-                }`}
-              >
-                <NavLink
-                  end
-                  to="/dashboard"
-                  className={`block text-slate-200 truncate transition duration-150 ${
-                    pathname.includes("dashboard")
-                      ? "hover:text-slate-200"
-                      : "hover:text-white"
+          <div className="space-y-8">
+            <div>
+              <h3 className="pl-3 text-xs font-semibold uppercase text-slate-500">
+                <span
+                  className="hidden w-6 text-center lg:block lg:sidebar-expanded:hidden 2xl:hidden"
+                  aria-hidden="true"
+                >
+                  •••
+                </span>
+              </h3>
+              <ul className="mt-3">
+                <li
+                  className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
+                    pathname.includes("dashboard") && "bg-red-900"
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center grow">
-                      <HiSquares2X2
-                        size={28}
-                        className={`fill-current ${
-                          pathname.includes("dashboard")
-                            ? "text-indigo-500"
-                            : "text-slate-600"
-                        }`}
-                      />
-                      <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                        Dashboard
-                      </span>
-                    </div>
-                  </div>
-                </NavLink>
-              </li>
-              <SidebarLinkGroup
-                activecondition={
-                  pathname === "/" || pathname.includes("product")
-                }
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <a
-                        href="#0"
-                        className={`block text-slate-200 truncate transition duration-150 ${
-                          pathname === "/" || pathname.includes("product")
-                            ? "hover:text-slate-200"
-                            : "hover:text-white"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <svg
-                              className="w-6 h-6 shrink-0"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                className={`fill-current ${
-                                  pathname === "/" ||
-                                  pathname.includes("product")
-                                    ? "text-indigo-500"
-                                    : "text-slate-400"
-                                }`}
-                                d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z"
-                              />
-                              <path
-                                className={`fill-current ${
-                                  pathname === "/" ||
-                                  pathname.includes("product")
-                                    ? "text-indigo-600"
-                                    : "text-slate-600"
-                                }`}
-                                d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z"
-                              />
-                              <path
-                                className={`fill-current ${
-                                  pathname === "/" ||
-                                  pathname.includes("product")
-                                    ? "text-indigo-200"
-                                    : "text-slate-400"
-                                }`}
-                                d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z"
-                              />
-                            </svg>
-                            <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                              Product
-                            </span>
-                          </div>
-                          {/* Icon */}
-                          <div className="flex ml-2 shrink-0">
-                            <svg
-                              className={`w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 ${
-                                open && "rotate-180"
-                              }`}
-                              viewBox="0 0 12 12"
-                            >
-                              <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                            </svg>
-                          </div>
-                        </div>
-                      </a>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/add-product"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-indigo-500"
-                                  : "text-slate-400 hover:text-slate-200")
-                              }
-                            >
-                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Tambah Product
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
+                  <NavLink
+                    end
+                    to="/dashboard"
+                    className={`block text-slate-200 truncate transition duration-150 ${
+                      pathname.includes("dashboard")
+                        ? "hover:text-slate-200"
+                        : "hover:text-white"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center grow">
+                        <HiSquares2X2
+                          size={28}
+                          className={`fill-current ${
+                            pathname.includes("dashboard")
+                              ? "text-white-500"
+                              : "text-slate-600"
+                          }`}
+                        />
+                        <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
+                          Dashboard
+                        </span>
                       </div>
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
-              <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes("users") && "bg-slate-900"
-                }`}
-              >
-                <NavLink
-                  end
-                  to="/add-user"
-                  className={`block text-slate-200 truncate transition duration-150 ${
-                    pathname.includes("users")
-                      ? "hover:text-slate-200"
-                      : "hover:text-white"
+                    </div>
+                  </NavLink>
+                </li>
+                <li
+                  className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
+                    pathname.includes("account") && "bg-red-900"
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center grow">
-                      <HiUsers
-                        size={28}
-                        className={`fill-current ${
-                          pathname.includes("users")
-                            ? "text-indigo-300"
-                            : "text-slate-400"
-                        }`}
-                      />
-                      <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                        User
-                      </span>
+                  <NavLink
+                    end
+                    to="/account"
+                    className={`block text-slate-200 truncate transition duration-150 ${
+                      pathname.includes("account")
+                        ? "hover:text-slate-200"
+                        : "hover:text-white"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center grow">
+                        <HiSquares2X2
+                          size={28}
+                          className={`fill-current ${
+                            pathname.includes("account")
+                              ? "text-white-500"
+                              : "text-slate-600"
+                          }`}
+                        />
+                        <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
+                          Kelola Akun
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </NavLink>
-              </li>
-            </ul>
+                  </NavLink>
+                </li>
+                <li
+                  className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
+                    pathname.includes("data-visitor") && "bg-red-900"
+                  }`}
+                >
+                  <NavLink
+                    end
+                    to="/data-visitor"
+                    className={`block text-slate-200 truncate transition duration-150 ${
+                      pathname.includes("data-visitor")
+                        ? "hover:text-slate-200"
+                        : "hover:text-white"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center grow">
+                        <HiSquares2X2
+                          size={28}
+                          className={`fill-current ${
+                            pathname.includes("data-visitor")
+                              ? "text-white-500"
+                              : "text-slate-600"
+                          }`}
+                        />
+                        <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
+                          Pengunjung
+                        </span>
+                      </div>
+                    </div>
+                  </NavLink>
+                </li>
+                <li
+                  className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
+                    pathname.includes("statistics") && "bg-red-900"
+                  }`}
+                >
+                  <NavLink
+                    end
+                    to="/statistics"
+                    className={`block text-slate-200 truncate transition duration-150 ${
+                      pathname.includes("statistics")
+                        ? "hover:text-slate-200"
+                        : "hover:text-white"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center grow">
+                        <HiSquares2X2
+                          size={28}
+                          className={`fill-current ${
+                            pathname.includes("statistics")
+                              ? "text-white-500"
+                              : "text-slate-600"
+                          }`}
+                        />
+                        <span className="ml-3 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
+                          Data Statistik
+                        </span>
+                      </div>
+                    </div>
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
+        <button
+          onClick={() => openModal()}
+          className="flex items-center justify-center space-x-4 btn"
+        >
+          <BiLogOut size={28} /> <span>Keluar</span>
+        </button>
       </div>
+      <ModalLogout
+        isOpen={isModalLogout}
+        onClose={closeModal}
+        logout={handleLogout}
+      />
     </div>
   );
 }

@@ -3,17 +3,18 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import PropTypes from "prop-types";
 
 function DefaultLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const authUser = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (authUser.user === null && authUser.isAuthenticated === false) {
-      navigate("/login");
-    }
-  }, [authUser, navigate]);
+  // useEffect(() => {
+  //   if (authUser.user === null && authUser.isAuthenticated === false) {
+  //     navigate("/login");
+  //   }
+  // }, [authUser, navigate]);
 
   return (
     <div className="flex h-screen overflow-hidden">

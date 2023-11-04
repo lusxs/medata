@@ -21,31 +21,36 @@ const Login = () => {
   return (
     <>
       <div className="flex items-center justify-center w-screen h-screen bg-gray-100">
-        <form
-          onSubmit={handleLogin}
-          className="flex flex-col items-center justify-center p-10 bg-white rounded shadow-md"
-        >
-          <p className="mb-5 text-3xl text-gray-600 uppercase">Login</p>
-          <input
-            type="email"
-            name="email"
-            className="mb-2 w-72 input input-bordered"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            className="mb-6 input w-72 input-bordered"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button className="w-full btn btn-primary" id="login" type="submit">
-            Login
-          </button>
-        </form>
+        <div>
+          <h1 className="mb-8 text-4xl font-bold text-center">MEDATA</h1>
+          <form
+            onSubmit={handleLogin}
+            className="flex flex-col items-center justify-center p-10 bg-white rounded shadow-md w-[500px]"
+          >
+            <p className="mb-5 text-3xl text-gray-600 uppercase">
+              Masuk ke Aplikasi
+            </p>
+            <input
+              type="email"
+              name="email"
+              className="w-full mb-2 input input-bordered"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              className="w-full mb-6 input input-bordered"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button className="w-72 btn btn-primary" id="login" type="submit">
+              Login
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
