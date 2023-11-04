@@ -1,6 +1,6 @@
-# Starter Firebase React
+# Medata
 
-Foobar is a Python library for dealing with word pluralization.
+Medata is
 
 ## Installation
 
