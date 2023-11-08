@@ -2,7 +2,7 @@ import DefaultLayout from "../../layout/DefaultLayout";
 import { dataWithTimestamps } from "../../utils/data";
 import Table from "../../components/table/Table";
 
-const DataVisitor = () => {
+const DataVisitorGO = () => {
   const tableHead = ["Name", "Email", "Bidang", "Status", "Aksi"];
 
   return (
@@ -15,4 +15,4 @@ const DataVisitor = () => {
   );
 };
 
-export default DataVisitor;
+export default DataVisitorGO;

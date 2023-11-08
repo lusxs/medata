@@ -5,7 +5,7 @@ import { HiMiniBuildingOffice } from "react-icons/hi2";
 import { dataWithTimestamps } from "../../utils/data.js";
 import { useEffect, useState } from "react";
 
-const DashboardAdmin = () => {
+const DashboardGO = () => {
   console.log(dataWithTimestamps);
   const [dataCount, setDataCount] = useState(0);
   const [dataCountByRehabilitasSosial, setDataCountByRehabilitasSosial] =
@@ -92,4 +92,4 @@ const DashboardAdmin = () => {
   );
 };
 
-export default DashboardAdmin;
+export default DashboardGO;

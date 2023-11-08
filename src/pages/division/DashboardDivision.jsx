@@ -5,20 +5,11 @@ import { HiMiniBuildingOffice } from "react-icons/hi2";
 import { dataWithTimestamps } from "../../utils/data.js";
 import { useEffect, useState } from "react";
 
-const DashboardAdmin = () => {
-  console.log(dataWithTimestamps);
+const DashboardDivision = () => {
+  const division = "Rehabilitas Sosial";
   const [dataCount, setDataCount] = useState(0);
   const [dataCountByRehabilitasSosial, setDataCountByRehabilitasSosial] =
     useState(0);
-  const [
-    dataCountByPerlindunganJaminanSosial,
-    setDataByPerlindunganJaminanSosial,
-  ] = useState(0);
-
-  const [
-    dataByPenangananSosialdanFakirMiskin,
-    setDataByPenangananSosialdanFakirMiskin,
-  ] = useState(0);
 
   function countData() {
     setDataCount(dataWithTimestamps.length);
@@ -31,25 +22,9 @@ const DashboardAdmin = () => {
     setDataCountByRehabilitasSosial(count);
   }
 
-  function countDataByPerlindunganJaminanSosial() {
-    const count = dataWithTimestamps.filter(
-      (item) => item.division === "Perlindungan Jaminan Sosial"
-    ).length;
-    setDataByPerlindunganJaminanSosial(count);
-  }
-
-  function countDataByPenanganSosialdanFakirMiskin() {
-    const count = dataWithTimestamps.filter(
-      (item) => item.division === "Penanganan Sosial dan Fakir Miskin"
-    ).length;
-    setDataByPenangananSosialdanFakirMiskin(count);
-  }
-
   useEffect(() => {
     countData();
     countDataByRehabilitasSosial();
-    countDataByPerlindunganJaminanSosial();
-    countDataByPenanganSosialdanFakirMiskin();
   }, []);
 
   return (
@@ -68,6 +43,7 @@ const DashboardAdmin = () => {
           <FaUserFriends size={80} />
         </CardVisit>
       </div>
+      <h3 className="">Maksud Tujuan</h3>
       <div className="grid grid-cols-3 gap-4 mt-12">
         <CardVisit
           sum={dataCountByRehabilitasSosial}
@@ -76,13 +52,13 @@ const DashboardAdmin = () => {
           <HiMiniBuildingOffice size={80} />
         </CardVisit>
         <CardVisit
-          sum={dataCountByPerlindunganJaminanSosial}
+          sum={dataCountByRehabilitasSosial}
           description="Jumlah Kunjungan di Bidang Perlindungan Jaminan Sosial"
         >
           <HiMiniBuildingOffice size={80} />
         </CardVisit>
         <CardVisit
-          sum={dataByPenangananSosialdanFakirMiskin}
+          sum={dataCountByRehabilitasSosial}
           description="Jumlah Kunjungan di Bidang Penanganan Sosial dan Fakir Miskin"
         >
           <HiMiniBuildingOffice size={80} />
@@ -92,4 +68,4 @@ const DashboardAdmin = () => {
   );
 };
 
-export default DashboardAdmin;
+export default DashboardDivision;

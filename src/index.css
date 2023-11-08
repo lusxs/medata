@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+.z-index-top {
+  z-index: 999;
+}
+
+.z-index {
+  z-index: 500;
+}
+
+.box__shadow__nav {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.box__shadow {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.dropdown {
+  max-width: 400px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
@@ -25,13 +46,4 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
-
-.box__shadow__card__visit {
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-}
-
-.box__shadow__chart {
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }

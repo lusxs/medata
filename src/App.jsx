@@ -2,18 +2,16 @@ import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Home from "./pages/Home";
-import ProductCreate from "./pages/product/ProductCreate";
-import ProductUpdate from "./pages/product/ProductUpdate";
 import Dashboard from "./pages/admin/DashboardAdmin";
-import ProductDetail from "./pages/product/ProductDetail";
-import ProductList from "./pages/product/ProductList";
-import UserList from "./pages/user/UserList";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import UserForm from "./pages/user/UserForm";
 import { getMe } from "./states/actions/authActions";
 import DataAccount from "./pages/admin/DataAccount";
 import StatisticsAdmin from "./pages/admin/StatisticsAdmin";
+import DataVisitor from "./pages/admin/DataVisitor";
+import DashboardDivision from "./pages/division/DashboardDivision";
+import DataVisitorDivision from "./pages/division/DataVisitorDivision";
+import StatisticsGO from "./pages/go/StatisticsGO";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,10 +40,15 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/account" element={<DataAccount />} />
-      <Route path="/data-visitor" element={<DataAccount />} />
+      <Route path="/data-visitor" element={<DataVisitor />} />
       <Route path="/statistics" element={<StatisticsAdmin />} />
-      <Route path="/users" element={<UserList />} />
-      <Route path="/add-user" element={<UserForm />} />
+      {/* Division */}
+      <Route path="/division/dashboard" element={<DashboardDivision />} />
+      <Route path="/division/data-visitor" element={<DataVisitorDivision />} />
+      {/* GO */}
+      <Route path="/go/dashboard" element={<DashboardDivision />} />
+      <Route path="/go/data-visitor" element={<DataVisitorDivision />} />
+      <Route path="/go/statistics" element={<StatisticsGO />} />
       <Route path="/login" element={<Login />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>

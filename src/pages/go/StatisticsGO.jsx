@@ -1,7 +1,7 @@
 import LineChart from "../../components/chart/LineChart";
 import DefaultLayout from "../../layout/DefaultLayout";
 
-const StatisticsAdmin = () => {
+const StatisticsGO = () => {
   const chartData = [12, 19, 3, 5, 2, 3, 7];
   const chartDataWeekly = [12, 19, 3, 5];
   const chartDataMonthly = [12, 19, 3, 5, 6, 7];
@@ -39,4 +39,4 @@ const StatisticsAdmin = () => {
   );
 };
 
-export default StatisticsAdmin;
+export default StatisticsGO;
