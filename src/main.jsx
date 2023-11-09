@@ -5,7 +5,7 @@ import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { FirebaseProvider } from "./context/FirebaseContext";
 import { Provider } from "react-redux";
-import store from "./states/store.js";
+import { store } from "./app/store.js";
 import { ThemeProvider } from "@material-tailwind/react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

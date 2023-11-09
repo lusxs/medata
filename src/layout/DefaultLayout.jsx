@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../context/FirebaseContext";
+import { logout, selectUser, login } from "../features/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
@@ -10,9 +13,30 @@ import { NavLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const DefaultLayout = ({ children }) => {
-  const [isModalLogout, setIsModalLogout] = useState(false);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const [isModalLogout, setIsModalLogout] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
+      if (userAuth) {
+        dispatch(
+          login({
+            email: userAuth.email,
+            uid: userAuth.uid,
+            displayName: userAuth.displayName,
+            photoUrl: userAuth.photoURL,
+          })
+        );
+      } else {
+        dispatch(logout());
+        navigate("/");
+      }
+    });
+
+    return () => unsubscribe(); // Unsubscribe saat komponen di-unmount
+  }, [dispatch, navigate]);
 
   const menus = [
     { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
@@ -59,7 +83,14 @@ const DefaultLayout = ({ children }) => {
   const location = useLocation();
 
   const handleLogout = () => {
-    navigate("/");
+    try {
+      dispatch(logout());
+      auth.signOut();
+      console.log("Hello");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const openModal = () => {
@@ -116,7 +147,7 @@ const DefaultLayout = ({ children }) => {
             </NavLink>
           ))}
           <button
-            onClick={() => openModal()}
+            onClick={(e) => handleLogout(e)}
             className="flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-red-600 rounded-md hover:text-white"
           >
             <div>{React.createElement(MdLogout, { size: "20" })}</div>

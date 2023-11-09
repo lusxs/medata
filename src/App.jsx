@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/admin/DashboardAdmin";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import { getMe } from "./states/actions/authActions";
 import DataAccount from "./pages/admin/DataAccount";
 import StatisticsAdmin from "./pages/admin/StatisticsAdmin";
 import DataVisitor from "./pages/admin/DataVisitor";

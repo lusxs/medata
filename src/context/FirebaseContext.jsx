@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { initializeApp } from "firebase/app"; // Import hanya modul Firebase yang dibutuhkan
 import "firebase/auth"; // Import modul auth jika Anda membutuhkannya
 import "firebase/firestore"; // Import modul firestore jika Anda membutuhkannya
+import { getAuth } from "firebase/auth";
 
 // Konfigurasi Firebase Anda, dapat ditemukan di Firebase Console
 const firebaseConfig = {
@@ -30,6 +31,8 @@ const app = initializeApp(firebaseConfig);
 
 // Buat konteks Firebase
 const FirebaseContext = createContext(null);
+
+export const auth = getAuth();
 
 // Provider Firebase ke seluruh aplikasi
 export function FirebaseProvider({ children }) {
