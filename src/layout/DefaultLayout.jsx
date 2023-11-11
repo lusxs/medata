@@ -35,7 +35,7 @@ const DefaultLayout = ({ children }) => {
       }
     });
 
-    return () => unsubscribe(); // Unsubscribe saat komponen di-unmount
+    return () => unsubscribe(); 
   }, [dispatch, navigate]);
 
   const menus = [

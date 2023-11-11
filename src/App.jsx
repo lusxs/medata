@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Home from "./pages/Home";
 import Dashboard from "./pages/admin/DashboardAdmin";
 import Login from "./pages/Login";
@@ -11,46 +11,62 @@ import DataVisitor from "./pages/admin/DataVisitor";
 import DashboardDivision from "./pages/division/DashboardDivision";
 import DataVisitorDivision from "./pages/division/DataVisitorDivision";
 import StatisticsGO from "./pages/go/StatisticsGO";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./context/FirebaseContext";
+import { login } from "./features/userSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const authUser = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const [isAuth, setIsAuth] = useState(false)
 
-  // useEffect(() => {
-  //   dispatch(getMe());
-  // }, [dispatch]);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
+      if (userAuth) {
+        dispatch(
+          login({
+            email: userAuth.email,
+            uid: userAuth.uid,
+            displayName: userAuth.displayName,
+            photoUrl: userAuth.photoURL,
+          })
+          
+        );
+        setIsAuth(true)
+      } else {
+        setIsAuth(false)
+      }
+    });
 
-  // if (authUser.user === null && authUser.isAuthenticated === false) {
-  //   return (
-  //     <>
-  //       <main>
-  //         <Routes>
-  //           <Route path="/login" element={<Login />} />
-  //           <Route path="/" element={<Home />} />
-  //           <Route path="/*" element={<NotFound />} />
-  //         </Routes>
-  //       </main>
-  //     </>
-  //   );
-  // }
+    return () => unsubscribe();
+  }, [dispatch, navigate]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/account" element={<DataAccount />} />
-      <Route path="/data-visitor" element={<DataVisitor />} />
-      <Route path="/statistics" element={<StatisticsAdmin />} />
-      {/* Division */}
-      <Route path="/division/dashboard" element={<DashboardDivision />} />
-      <Route path="/division/data-visitor" element={<DataVisitorDivision />} />
-      {/* GO */}
-      <Route path="/go/dashboard" element={<DashboardDivision />} />
-      <Route path="/go/data-visitor" element={<DataVisitorDivision />} />
-      <Route path="/go/statistics" element={<StatisticsGO />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/*" element={<NotFound />} />
-    </Routes>
+    <main>
+      <Routes>
+        {isAuth ? (
+          <>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/account" element={<DataAccount />} />
+            <Route path="/data-visitor" element={<DataVisitor />} />
+            <Route path="/statistics" element={<StatisticsAdmin />} />
+            {/* Division */}
+            <Route path="/division/dashboard" element={<DashboardDivision />} />
+            <Route path="/division/data-visitor" element={<DataVisitorDivision />} />
+            {/* GO */}
+            <Route path="/go/dashboard" element={<DashboardDivision />} />
+            <Route path="/go/data-visitor" element={<DataVisitorDivision />} />
+            <Route path="/go/statistics" element={<StatisticsGO />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={<NotFound />} />
+          </>
+        )}
+      </Routes>
+    </main>
   );
 }
 

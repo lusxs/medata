@@ -41,7 +41,7 @@ const Login = () => {
 
       navigate("/dashboard");
     } catch (error) {
-      alert(error); // Display an alert or handle the error appropriately
+      alert(error);
       console.log(error);
     }
   };
